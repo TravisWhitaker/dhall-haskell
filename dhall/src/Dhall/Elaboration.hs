@@ -570,9 +570,9 @@ infer cxt@Cxt{..} t =
       addNote s (infer_ t)
 
     Embed imp@Import{..} -> do
-      (t, tv, a, hsh) <- resolve cxt imp
       ImportState{..} <- ask
-
+      unless _importsEnabled $ importError cxt ImportResolutionDisabled
+      (t, tv, a, hsh) <- resolve cxt imp
       let hashedImp = imp {importHashed = importHashed {hash = Just hsh}}
 
       -- length _stack check: no recursive freezing! We only freeze the root expression.

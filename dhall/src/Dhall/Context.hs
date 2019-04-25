@@ -72,6 +72,9 @@ data ImportState = ImportState
 
     -- ^ Options for freezing imports.
   , _freezing :: !Freezing
+
+    -- ^ Disabling imports.
+  , _importsEnabled :: !Bool
   }
 
 type ElabM = ReaderT ImportState IO
@@ -99,6 +102,7 @@ emptyImportState rootDirectory = do
     _manager         = Nothing
     _standardVersion = defaultStandardVersion
     _freezing        = NoFreezing
+    _importsEnabled  = True
 
   _manager <- newIORef Nothing
   _cache   <- newIORef mempty

@@ -155,6 +155,9 @@ data ImportError
   | HashMismatch { expectedHash :: Crypto.Hash.Digest SHA256
                  , actualHash   :: Crypto.Hash.Digest SHA256}
 
+  -- | Expection thrown when import resolution is disabled.
+  | ImportResolutionDisabled
+
 instance Exception ImportError
 
 instance Show ImportError where
@@ -192,6 +195,7 @@ instance Show ImportError where
         <>  "Actual hash:\n"
         <>  "\n"
         <>  "↳ " <> show actualHash <> "\n"
+  show ImportResolutionDisabled = "Import resolution is disabled"
 
 
 -- Type errors
